@@ -49,6 +49,6 @@ class TestGetJson(unittest.TestCase):
     def test_get_json(self, url: str, expected: Any):
         """ Test the get_json function with different
         URLs and expected JSON responses """
-        with patch("utils.requests.get") as mock_get:
+        with patch("requests.get") as mock_get:
             mock_get.return_value.json.return_value = expected
             self.assertEqual(get_json(url), expected)
