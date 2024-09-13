@@ -7,7 +7,7 @@ from parameterized import parameterized
 from typing import (
     Mapping,
     Sequence,
-    Any,
+    Dict,
 )
 
 
@@ -46,12 +46,13 @@ class TestGetJson(unittest.TestCase):
             ("https://holberton.io", {"payload": False}),
         ]
     )
-    def test_get_json(self, url: str, expected: Any):
+    def test_get_json(self, url: str, expected: Dict):
         """ Test the get_json function with different
         URLs and expected JSON responses """
-        with patch("requests.get") as mock_get:
+        with unittest.mock.patch("requests.get") as mock_get:
             mock_get.return_value.json.return_value = expected
             self.assertEqual(get_json(url), expected)
+            mock_get.assert_called_once_with(url)
 
 
 class TestMemoize(unittest.TestCase):
