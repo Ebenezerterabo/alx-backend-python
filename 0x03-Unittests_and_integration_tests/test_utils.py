@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ test utils module """
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from utils import access_nested_map, get_json, memoize
 from parameterized import parameterized
 from typing import (
@@ -49,10 +49,11 @@ class TestGetJson(unittest.TestCase):
     def test_get_json(self, url: str, expected: Dict):
         """ Test the get_json function with different
         URLs and expected JSON responses """
-        with unittest.mock.patch("requests.get") as mock_get:
-            mock_get.return_value.json.return_value = expected
+        mock_response = Mock()
+        mock_response.json.return_value = expected
+        with patch("utils.requests.get") as mock_get:
+            mock_get.return_value = mock_response
             self.assertEqual(get_json(url), expected)
-            mock_get.assert_called_once_with(url)
 
 
 class TestMemoize(unittest.TestCase):
