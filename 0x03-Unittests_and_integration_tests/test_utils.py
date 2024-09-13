@@ -8,6 +8,7 @@ from typing import (
     Mapping,
     Sequence,
     Dict,
+    Any,
 )
 
 
@@ -46,7 +47,7 @@ class TestGetJson(unittest.TestCase):
             ("https://holberton.io", {"payload": False}),
         ]
     )
-    def test_get_json(self, url: str, expected: Dict):
+    def test_get_json(self, url: str, expected: Any):
         """ Test the get_json function with different
         URLs and expected JSON responses """
         mock_response = Mock()
